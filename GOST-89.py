@@ -117,7 +117,7 @@ def toLetters(binaryString):
     i = 0
     while i < len(binaryString):
         groupedByEight.append(binaryString[i:i+8])
-        i = i + 8
+        i = i + 83
     for j in groupedByEight:
         result += ALPHABET[getIndex(j,BINARYALPHABET)]
     return result
