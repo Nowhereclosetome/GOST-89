@@ -118,7 +118,6 @@ def toLetters(binaryString):
     while i < len(binaryString):
         groupedByEight.append(binaryString[i:i+8])
         i = i + 8
-    print(groupedByEight)
     for j in groupedByEight:
         result += ALPHABET[getIndex(j,BINARYALPHABET)]
     return result
@@ -139,6 +138,10 @@ def encrypt(data,key):
         curKeyPart = key[1]
     return encrypted
 
+def toStr(arr):
+    return "" + arr[0] + arr[1]
+
+
 def decrypt(encrypted,key):
     decrypted = []
     curKeyPart = key[1]
@@ -156,5 +159,6 @@ def decrypt(encrypted,key):
     return decrypted[::-1]
 
 data,key = GetInformationFromFile("Gost-89")
-print(data)
-print(key)
+print("Encrypted: ",encrypt(data,key))
+print("Decrypted: ",decrypt(encrypt(data,key), key))
+print("Decoded to letters: ", toLetters(toStr(decrypt(encrypt(data,key), key))))
