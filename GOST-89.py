@@ -21,6 +21,15 @@ def getIndex(value, struct):
         if struct[i] == value:
             return i
 
+def generateKeys(masterkey):
+    key = []
+    masterkey = bin(int(masterkey))
+    masterkey = masterkey[2:]
+    key.append(masterkey)
+    masterkey = masterkey[4:] + masterkey[:4]
+    key.append(masterkey)
+    return key
+
 def GetInformationFromFile(filename):
     data = []
     key = []
@@ -29,17 +38,16 @@ def GetInformationFromFile(filename):
     raw[0] = raw[0][:len(raw[0])-1]
     rawdata =   raw[0] 
     rawkey  =   raw[1]
+    key = generateKeys(rawkey)
     binarydata  = ''
     binarykey   = ''
     for i in rawdata:
         binarydata += BINARYALPHABET[getIndex(i,ALPHABET)]
-    for i in rawkey:
-        binarykey += BINARYCIPHERS[int(i)]
     data.append(binarydata[:32])
     data.append(binarydata[32:])
-    key.append(binarykey[:32])
-    key.append(binarykey[32:])
     return data,key
+
+
 
 def binaryPlus(firstNum, secondNum, mode = "NOTXOR"):
     result = ''
@@ -148,3 +156,5 @@ def decrypt(encrypted,key):
     return decrypted[::-1]
 
 data,key = GetInformationFromFile("Gost-89")
+print(data)
+print(key)
